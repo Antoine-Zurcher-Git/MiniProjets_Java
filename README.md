@@ -66,10 +66,10 @@ Jeux de l'araignée :
 
 <div>
     <div class="imgContainer">
-        <img alt="AraigneeMenu" class="middle-img" src="Illustrations\AraigneeMenu.PNG" height="100%" width="100%"/>
+        <img alt="AraigneeMenu" class="middle-img" src="Illustrations\AraigneeMenu.PNG" height="100%" width="45%"/>
     </div>
     <div class="imgContainer">
-        <img alt="AraigneeJeu" class="middle-img" src="Illustrations\AraigneeJeu.PNG" height="100%" width="100%"/>
+        <img alt="AraigneeJeu" class="middle-img" src="Illustrations\AraigneeJeu.PNG" height="100%" width="45%"/>
     </div>
 </div>
 
