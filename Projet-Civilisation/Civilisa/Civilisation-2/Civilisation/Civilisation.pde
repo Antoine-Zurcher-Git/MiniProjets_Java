@@ -1,0 +1,164 @@
+//v2
+PImage fond;
+int dimGugus = 10;
+gugus []gugu;
+int largeur,hauteur;
+int [][]posE = {{-1,-1},{0,-1},{1,-1},{1,0},{1,1},{0,1},{-1,1},{-1,0}};
+int bonheurM = 50,ageM = 160;
+
+void settings(){
+  fond = loadImage("fond.png");
+  largeur = fond.width;
+  hauteur = fond.height;
+  size(largeur,hauteur,P3D);
+  gugu = new gugus[int(largeur*hauteur/(dimGugus*dimGugus))];
+  
+}
+
+void setup(){
+  image(fond,0,0);
+  loadPixels();
+  
+  for(int i = 0; i < gugu.length ; i ++){
+    //println("i : "+i);
+    //println(  (i%(largeur/dimGugus))*dimGugus+dimGugus/2 );
+    //println(int(i/(largeur/dimGugus))*dimGugus+dimGugus/2 ); //couleur                                                     vie force          x et y
+    float v = 100;//random(50,200);
+    float f = 20;//random(5,40);
+    if(i == 163){
+      println("3 !");
+      //v = 200;
+      //f = 50;
+      //println(color(get( (i%(largeur/dimGugus))*dimGugus+dimGugus/2 ,int(i/(largeur/dimGugus))*dimGugus+dimGugus/2 )));
+      //println(color(0,38,255));
+    }
+    
+    gugu[i] = new gugus(color(get( (i%(largeur/dimGugus))*dimGugus+dimGugus/2 ,int(i/(largeur/dimGugus))*dimGugus+dimGugus/2 )),v,f,(i%(largeur/dimGugus))*dimGugus,int(i/(largeur/dimGugus))*dimGugus );
+  }
+}
+
+
+void draw(){
+
+  for(int i = 0; i < gugu.length ; i ++){
+    gugu[i].vivre();
+  }
+}
+
+class gugus{
+  
+  color couleur;
+  float age = 0,bonheur,vie,force,px,py,vieI;
+  color noir = color(0,0,0),vert = color(0,255,0);
+  gugus(color col,float vi,float forc,float posx,float posy){
+    couleur = col;
+    vie = vi;
+    force = forc;
+    px = posx;
+    py = posy;
+    vieI = vi;
+    if(couleur == noir || couleur == vert){
+      vie = 0;
+      force = 0;
+    }
+  }
+  
+  void vivre(){
+    fill(couleur);
+    noStroke();
+    rect(px,py,dimGugus,dimGugus);
+    
+    if(couleur != noir && couleur != vert){
+      //println(random(0,8)+" "+px);
+      //Age
+      age ++;
+      
+      //Vie
+      if(vie <= 0 || age > ageM){
+        couleur = vert;
+        force = 0;
+        vie = 0;
+      }
+      
+      int videNb = 0;
+      int ennemiNb = 0;
+      int allieNb = 0;
+      int vide[][] = new int[8][2];
+      int ennemi[][] = new int[8][2];
+      int allie[][] = new int[8][2];
+      
+      int nP [] = {int(px)/dimGugus,int(py)/dimGugus};
+      for(int i = 0 ; i < 8 ; i ++){
+        int pos [] = {nP[0]+posE[i][0],nP[1]+posE[i][1]};
+        color coul = blocC(pos);
+        if(coul == couleur){
+          allie[allieNb] = pos;
+          allieNb ++;
+        }else if(coul == vert){
+          vide[videNb] = pos;
+          videNb ++;
+        }else if(coul != vert && coul != noir && coul != couleur){
+          ennemi[ennemiNb] = pos;
+          ennemiNb ++;
+        }
+        
+      }
+      bonheur += 1+int(allieNb/2);
+      if(videNb > 0){
+        int k = 0;
+        int Sens [][] = new int[videNb][2];
+        for(int i = 0; i < videNb ; i ++){
+          int r = 0;
+          if(i > 0){
+            //int r[] = vide[int(random(0,videNb+1))];
+            //for(int j = 0; j < i ; j ++){
+            //  while
+            //}
+            Sens[i] = vide[r+i];
+          }else{
+            r = int(random(0,videNb));
+            Sens[i] = vide[r];
+            //println(i,r);
+          }
+        }
+        while (bonheur > bonheurM && k < videNb){
+          enfante(Sens[k]);
+          //gugu[blocNum(Sens[k])].couleur = couleur;
+          bonheur -= bonheurM;
+          k ++;
+        }
+      }
+      //if(videNb == 0 && bonheur > bonheurM && age > bonheurM){
+      //  enfante(nP,1);
+      //  bonheur -= bonheurM;
+      //}
+      
+      //Combat 
+      
+      if(ennemiNb > 0){
+        gugu[blocNum(ennemi[0])].vie -= force;
+      }
+      
+    }
+    
+  }
+  
+  void enfante(int []pos){//type : 0 -> autre, 1 -> sa case
+    gugu[blocNum(pos)].couleur = couleur;
+    gugu[blocNum(pos)].age = 0;
+    gugu[blocNum(pos)].vie = vieI;
+    gugu[blocNum(pos)].force = force;
+  }
+  
+  
+  
+}
+
+color blocC(int []pos){// position en / 10
+  int num = blocNum(pos);
+  return gugu[num].couleur;
+}
+
+int blocNum(int []pos){
+  return pos[0]+(largeur/dimGugus)*pos[1];
+}

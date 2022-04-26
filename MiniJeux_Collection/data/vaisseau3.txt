@@ -1,0 +1,11 @@
+16
+7
+ooooooooxooooooo
+oooooooxxxxooooo
+ooxoooxoooxxoxxo
+oxxxxoooooxooxxo
+xoooxoooooooxoox
+oxoxooxooooooooo
+oooooxoooooooooo
+
+
