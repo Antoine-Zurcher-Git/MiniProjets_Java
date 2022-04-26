@@ -11,7 +11,7 @@ boolean kamikaze = true;
 boolean hearthstone = true;//pas logique de mettre les deux
 
 void settings(){
-  fond = loadImage("fondMonde10.png");
+  fond = loadImage("fond2.png");
   largeur = fond.width;
   hauteur = fond.height;
   size(largeur,hauteur,P3D);
