@@ -1,20 +1,12 @@
-<style>
-.imgContainer{
-    float:left;
-    padding:5px;
-}
-
-
-</style>
 
 # MiniProjets_Java
 
 ## Principe :
-Ce dépôt regroupe un ensemble de projets réalisé en Java ou en Processing :
+Ce dépôt regroupe un ensemble de projets réalisés en Java ou en Processing :
 
 - Collection de Mini Jeux
 - Combat de civilisations
-- Jeux de l'araignée
+- Jeu de l'araignée
 
 <br />
 
@@ -26,7 +18,7 @@ Ce dépôt regroupe un ensemble de projets réalisé en Java ou en Processing :
 
 Collection de Mini Jeux :
 
-Jeux de la vie
+Jeu de la vie
 
 <img src="Illustrations\CollectionJeuVie.PNG" alt="Collection" width="70%"/>
 
@@ -61,7 +53,7 @@ Combat de civilisations :
 
 <br />
 
-Jeux de l'araignée :
+Jeu de l'araignée :
 
 
 <div>
